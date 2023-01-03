@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Nameless.WebApplication.Domain.Entities;
 
-namespace Nameless.WebApplication.Domain {
+namespace Nameless.WebApplication.Entities {
 
     public sealed class WebApplicationDbContext : DbContext {
 

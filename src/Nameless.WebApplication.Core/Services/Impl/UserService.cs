@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nameless.WebApplication.Domain;
-using Nameless.WebApplication.Domain.Entities;
+using Nameless.WebApplication.Entities;
 
 namespace Nameless.WebApplication.Services.Impl {
 

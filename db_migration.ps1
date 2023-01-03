@@ -1,0 +1,2 @@
+$migration_name = Read-Host -Prompt 'Migration name'
+dotnet ef migrations add $migration_name -s .\src\Nameless.WebApplication.Web\Nameless.WebApplication.Web.csproj -p .\src\Nameless.WebApplication.Entities\Nameless.WebApplication.Entities.csproj

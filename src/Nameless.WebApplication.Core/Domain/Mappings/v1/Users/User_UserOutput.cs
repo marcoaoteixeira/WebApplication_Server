@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Nameless.WebApplication.Domain.Dtos.v1.Users;
-using Nameless.WebApplication.Domain.Entities;
+using Nameless.WebApplication.Entities;
 
 namespace Nameless.WebApplication.Domain.Mappings.v1.Users {
 

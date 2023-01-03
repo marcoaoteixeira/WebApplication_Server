@@ -3,7 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Nameless.WebApplication.Domain.Dtos.Common;
 using Nameless.WebApplication.Domain.Dtos.v1.Users;
-using Nameless.WebApplication.Domain.Entities;
+using Nameless.WebApplication.Entities;
 using Nameless.WebApplication.Services;
 using Swashbuckle.AspNetCore.Annotations;
 

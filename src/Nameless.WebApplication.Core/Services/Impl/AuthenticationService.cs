@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Nameless.WebApplication.Domain.Dtos.Common;
 using Nameless.WebApplication.Settings;
 
 namespace Nameless.WebApplication.Services.Impl {
@@ -11,13 +12,13 @@ namespace Nameless.WebApplication.Services.Impl {
         private readonly IJsonWebTokenService _jsonWebTokenService;
         private readonly IRefreshTokenService _refreshTokenService;
         private readonly IClock _clock;
-        private readonly WebApplicationSettings _settings;
+        private readonly JsonWebTokenSettings _settings;
 
         #endregion
 
         #region Public Constructors
 
-        public AuthenticationService(IUserService userService, IJsonWebTokenService jsonWebTokenService, IRefreshTokenService refreshTokenService, IClock clock, IOptions<WebApplicationSettings> settings) {
+        public AuthenticationService(IUserService userService, IJsonWebTokenService jsonWebTokenService, IRefreshTokenService refreshTokenService, IClock clock, IOptions<JsonWebTokenSettings> settings) {
             Prevent.Null(userService, nameof(userService));
             Prevent.Null(jsonWebTokenService, nameof(jsonWebTokenService));
             Prevent.Null(refreshTokenService, nameof(refreshTokenService));

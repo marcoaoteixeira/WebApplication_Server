@@ -6,18 +6,16 @@ namespace Nameless.WebApplication {
 
         #region Public Static Methods
 
-        public static string? GetIpAddress(this HttpContext? self) {
+        public static string GetIpAddress(this HttpContext? self) {
             Prevent.Null(self, nameof(self));
 
             if (self.Request.Headers.ContainsKey("X-Forwarded-For")) {
-                return self.Request.Headers["X-Forwarded-For"];
+                return self.Request.Headers["X-Forwarded-For"].ToString();
             }
 
-            if (self.Connection.RemoteIpAddress == null) {
-                return string.Empty;
-            }
-
-            return self.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            return self.Connection.RemoteIpAddress != null
+                ? self.Connection.RemoteIpAddress.MapToIPv4().ToString()
+                : string.Empty;
         }
 
         #endregion

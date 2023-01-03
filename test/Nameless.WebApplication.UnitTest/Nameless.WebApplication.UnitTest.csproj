@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Nameless.WebApplication.Core\Nameless.WebApplication.Core.csproj" />
+    <ProjectReference Include="..\..\src\Nameless.WebApplication.Entities\Nameless.WebApplication.Entities.csproj" />
   </ItemGroup>
 
 </Project>

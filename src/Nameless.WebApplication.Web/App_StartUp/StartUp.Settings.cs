@@ -11,17 +11,17 @@ namespace Nameless.WebApplication {
             services.AddOptions();
 
             services
-                .Configure<SwaggerPageSettings>(configuration.GetSection(GetOptionName<SwaggerPageSettings>()))
-                .Configure<WebApplicationSettings>(configuration.GetSection(GetOptionName<WebApplicationSettings>()))
-                .Configure<Log4netSettings>(configuration.GetSection(GetOptionName<Log4netSettings>()));
+                .Configure<Log4netSettings>(configuration.GetSection(GetSectionKey<Log4netSettings>()))
+                .Configure<SwaggerPageSettings>(configuration.GetSection(GetSectionKey<SwaggerPageSettings>()))
+                .Configure<JsonWebTokenSettings>(configuration.GetSection(GetSectionKey<JsonWebTokenSettings>()));
         }
 
         #endregion
 
         #region Private Static Methods
 
-        private static string GetOptionName<TOptions>() {
-            return typeof(TOptions).Name
+        private static string GetSectionKey<TNode>() {
+            return typeof(TNode).Name
                 .Replace("Options", string.Empty)
                 .Replace("Settings", string.Empty);
         }

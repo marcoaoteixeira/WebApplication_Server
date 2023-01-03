@@ -13,37 +13,37 @@ namespace Nameless.WebApplication.Services.Impl {
         #region Private Read-Only Fields
 
         private readonly IClock _clock;
-        private readonly JwtSettings _jwtSettings;
+        private readonly JsonWebTokenSettings _jwtSettings;
         private readonly byte[] _secretBytes;
 
         #endregion
 
         #region Public Constructors
 
-        public JsonWebTokenService(IClock clock, IOptions<WebApplicationSettings> webApplicationSettings) {
+        public JsonWebTokenService(IClock clock, IOptions<JsonWebTokenSettings> jsonWebTokenSettings) {
             Prevent.Null(clock, nameof(clock));
-            Prevent.Null(webApplicationSettings, nameof(webApplicationSettings));
+            Prevent.Null(jsonWebTokenSettings, nameof(jsonWebTokenSettings));
 
             _clock = clock;
-            _jwtSettings = webApplicationSettings.Value.Jwt;
-            _secretBytes = Encoding.UTF8.GetBytes(_jwtSettings.Secret ?? JwtSettings.DEFAULT_SECRET);
+            _jwtSettings = jsonWebTokenSettings.Value;
+            _secretBytes = Encoding.UTF8.GetBytes(_jwtSettings.Secret ?? JsonWebTokenSettings.DEFAULT_SECRET);
         }
 
         #endregion
 
         #region IJsonWebTokenService Members
 
-        public Task<string> GenerateTokenAsync(string value, CancellationToken cancellationToken = default) {
-            var now = _clock.UtcNow;
+        public Task<string> GenerateTokenAsync(string subject, CancellationToken cancellationToken = default) {
             var issuer = _jwtSettings.Issuer ?? string.Empty;
             var audience = _jwtSettings.Audience ?? string.Empty;
-            var expires = now.AddMinutes(_jwtSettings.Ttl);
+            var now = _clock.UtcNow;
+            var expires = now.AddMinutes(_jwtSettings.TokenTtl);
             
             var securityToken = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
                 claims: new[] {
-                    new SysClaim(JwtRegisteredClaimNames.Sub, value),
+                    new SysClaim(JwtRegisteredClaimNames.Sub, subject),
                     new SysClaim(JwtRegisteredClaimNames.Iss, issuer),
                     new SysClaim(JwtRegisteredClaimNames.Exp, expires.ToString()),
                     new SysClaim(JwtRegisteredClaimNames.Iat, now.ToString()),

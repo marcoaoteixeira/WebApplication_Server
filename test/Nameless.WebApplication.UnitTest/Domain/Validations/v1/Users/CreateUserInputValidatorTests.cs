@@ -1,8 +1,7 @@
-﻿using System.Threading;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using Nameless.WebApplication.Domain.Dtos.v1.Users;
-using Nameless.WebApplication.Domain.Entities;
 using Nameless.WebApplication.Domain.Validations.v1.Users;
+using Nameless.WebApplication.Entities;
 
 namespace Nameless.WebApplication.UnitTest.Domain.Validations.v1.Users {
 

@@ -2,46 +2,51 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Nameless.WebApplication.Domain;
+using Nameless.WebApplication.Entities;
 
 #nullable disable
 
-namespace Nameless.WebApplication.Domain.Migrations
+namespace Nameless.WebApplication.Entities.Migrations
 {
     [DbContext(typeof(WebApplicationDbContext))]
-    [Migration("20221220111827_refresh_tokens")]
-    partial class refresh_tokens
+    [Migration("20230103190932_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("Nameless.WebApplication.Domain.Entities.Claim", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Nameless.WebApplication.Entities.Claim", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ModificationDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime?>("ModificationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("OwnerID")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -50,84 +55,89 @@ namespace Nameless.WebApplication.Domain.Migrations
                     b.ToTable("Claims");
                 });
 
-            modelBuilder.Entity("Nameless.WebApplication.Domain.Entities.RefreshToken", b =>
+            modelBuilder.Entity("Nameless.WebApplication.Entities.RefreshToken", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedByIp")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedIn")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ExpiresIn")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ModificationDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime?>("ModificationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("OwnerID")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ReplacedByToken")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RevokeReason")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RevokedByIp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RevokedIn")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Token")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("OwnerID");
 
-                    b.ToTable("RefreshToken");
+                    b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("Nameless.WebApplication.Domain.Entities.User", b =>
+            modelBuilder.Entity("Nameless.WebApplication.Entities.User", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Locked")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime>("ModificationDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime?>("ModificationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Password")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Nameless.WebApplication.Domain.Entities.Claim", b =>
+            modelBuilder.Entity("Nameless.WebApplication.Entities.Claim", b =>
                 {
-                    b.HasOne("Nameless.WebApplication.Domain.Entities.User", "Owner")
+                    b.HasOne("Nameless.WebApplication.Entities.User", "Owner")
                         .WithMany("Claims")
                         .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -136,9 +146,9 @@ namespace Nameless.WebApplication.Domain.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Nameless.WebApplication.Domain.Entities.RefreshToken", b =>
+            modelBuilder.Entity("Nameless.WebApplication.Entities.RefreshToken", b =>
                 {
-                    b.HasOne("Nameless.WebApplication.Domain.Entities.User", "Owner")
+                    b.HasOne("Nameless.WebApplication.Entities.User", "Owner")
                         .WithMany("RefreshTokens")
                         .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -147,7 +157,7 @@ namespace Nameless.WebApplication.Domain.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Nameless.WebApplication.Domain.Entities.User", b =>
+            modelBuilder.Entity("Nameless.WebApplication.Entities.User", b =>
                 {
                     b.Navigation("Claims");
 

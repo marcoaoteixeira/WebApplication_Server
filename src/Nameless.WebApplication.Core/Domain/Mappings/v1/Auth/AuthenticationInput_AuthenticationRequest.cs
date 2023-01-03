@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Nameless.WebApplication.Domain.Dtos.Common;
 using Nameless.WebApplication.Domain.Dtos.v1.Auth;
-using Nameless.WebApplication.Services;
 
 namespace Nameless.WebApplication.Domain.Mappings.v1.Auth {
 

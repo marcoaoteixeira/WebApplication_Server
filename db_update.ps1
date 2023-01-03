@@ -1,0 +1,1 @@
+dotnet ef database update -s .\src\Nameless.WebApplication.Web\Nameless.WebApplication.Web.csproj -p .\src\Nameless.WebApplication.Entities\Nameless.WebApplication.Entities.csproj
