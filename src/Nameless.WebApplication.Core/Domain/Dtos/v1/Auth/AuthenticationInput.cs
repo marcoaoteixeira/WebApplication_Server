@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nameless.WebApplication.Api.v1.Models {
+namespace Nameless.WebApplication.Domain.Dtos.v1.Auth {
 
     public sealed class AuthenticationInput {
 

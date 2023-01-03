@@ -52,7 +52,7 @@ namespace Nameless.WebApplication.Services.Impl {
             //    _.CreatedIn.AddDays(_settings.Jwt.RefreshTokenTtl) <= _clock.UtcNow
             //);
 
-            await _userService.UpdateAsync(user, cancellationToken);
+            //await _userService.UpdateAsync(user, cancellationToken);
 
             return new AuthenticationResponse {
                 Token = jsonWebToken,

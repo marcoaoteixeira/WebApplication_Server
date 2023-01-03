@@ -27,6 +27,25 @@ namespace Nameless.WebApplication.Services.Impl {
 
         #region IUserService Members
 
+        public async Task<User> CreateAsync(User user, CancellationToken cancellationToken = default) {
+            Prevent.Null(user, nameof(user));
+
+            var now = _clock.UtcNow;
+
+            user.ID = Guid.NewGuid();
+
+            user.Password = HashUtil.Hash(user.Password);
+
+            user.CreationDate = now;
+            user.ModificationDate = now;
+
+            _dbContext.Users.Add(user);
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return user;
+        }
+
         public Task<User?> GetByIDAsync(Guid id, CancellationToken cancellationToken = default) {
             return _dbContext.Users
                 .Include(_ => _.Claims)
@@ -48,16 +67,34 @@ namespace Nameless.WebApplication.Services.Impl {
                 .SingleOrDefaultAsync(_ => _.Email == email, cancellationToken);
         }
 
-        public Task UpdateAsync(User user, CancellationToken cancellation = default) {
+        public async Task UpdateAsync(User user, CancellationToken cancellationToken = default) {
             Prevent.Null(user, nameof(user));
 
-            if (!_dbContext.Users.Any(_ => _.ID == user.ID)) {
-                return Task.CompletedTask;
+            var currentUser = await _dbContext.Users.SingleOrDefaultAsync(_ => _.ID == user.ID, cancellationToken);
+
+            if (currentUser == null) {
+                return;
             }
+
+            currentUser.Username = user.Username;
+            currentUser.ModificationDate = _clock.UtcNow;
 
             _dbContext.Update(user);
 
-            return _dbContext.SaveChangesAsync(cancellation);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public Task<User[]> SearchAsync(int index, int size, string? searchTerm = default, string? orderBy = default, CancellationToken cancellationToken = default) {
+            if (index < 0) { index = 0; }
+            if (size < 1) { size = 10; }
+
+            searchTerm ??= string.Empty;
+
+            return _dbContext.Users
+                .Where(_ => _.Username.Contains(searchTerm))
+                .Skip(index * size)
+                .Take(size)
+                .ToArrayAsync(cancellationToken);
         }
 
         #endregion

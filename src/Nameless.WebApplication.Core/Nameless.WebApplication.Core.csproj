@@ -39,10 +39,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Domain\Dtos\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <EditorConfigFiles Remove="C:\Workspace\marcoaoteixeira\Nameless\apps\WebApplication\Nameless.WebApplication.Core\Logging\log4net\.editorconfig" />
 	</ItemGroup>
 
