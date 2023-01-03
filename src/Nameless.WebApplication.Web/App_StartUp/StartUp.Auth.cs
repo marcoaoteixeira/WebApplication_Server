@@ -10,10 +10,9 @@ namespace Nameless.WebApplication {
         #region Private Static Methods
 
         private static void ConfigureAuth(IServiceCollection services, IHostEnvironment hostEnvironment, IConfiguration configuration) {
-            var webApplicationSettings = configuration
-                .GetSection(GetOptionName<WebApplicationSettings>())
-                .Get<WebApplicationSettings>() ?? new();
-            var jwtSettings = webApplicationSettings.Jwt;
+            var jwtSettings = configuration
+                .GetSection(GetSectionKey<JsonWebTokenSettings>())
+                .Get<JsonWebTokenSettings>() ?? new();
 
             services
                 .AddAuthentication(opts => {
@@ -21,7 +20,7 @@ namespace Nameless.WebApplication {
                     opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(opts => {
-                    var secret = Encoding.UTF8.GetBytes(jwtSettings.Secret ?? JwtSettings.DEFAULT_SECRET);
+                    var secret = Encoding.UTF8.GetBytes(jwtSettings.Secret ?? JsonWebTokenSettings.DEFAULT_SECRET);
 
                     opts.RequireHttpsMetadata = !hostEnvironment.IsDevelopment();
                     opts.SaveToken = true;

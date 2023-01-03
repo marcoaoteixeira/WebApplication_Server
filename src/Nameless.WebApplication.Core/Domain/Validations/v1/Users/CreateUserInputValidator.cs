@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Nameless.WebApplication.Domain.Dtos.v1.Users;
+using Nameless.WebApplication.Entities;
 
 namespace Nameless.WebApplication.Domain.Validations.v1.Users {
 

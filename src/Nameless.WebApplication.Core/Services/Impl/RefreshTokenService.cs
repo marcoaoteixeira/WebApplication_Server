@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Nameless.WebApplication.Domain;
-using Nameless.WebApplication.Domain.Entities;
+using Nameless.WebApplication.Entities;
 using Nameless.WebApplication.Settings;
 
 namespace Nameless.WebApplication.Services.Impl {
@@ -15,13 +15,13 @@ namespace Nameless.WebApplication.Services.Impl {
         private readonly WebApplicationDbContext _dbContext;
         private readonly IClock _clock;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly WebApplicationSettings _settings;
+        private readonly JsonWebTokenSettings _settings;
 
         #endregion
 
         #region Public Constructors
 
-        public RefreshTokenService(WebApplicationDbContext dbContext, IClock clock, IHttpContextAccessor httpContextAccessor, IOptions<WebApplicationSettings> settings) {
+        public RefreshTokenService(WebApplicationDbContext dbContext, IClock clock, IHttpContextAccessor httpContextAccessor, IOptions<JsonWebTokenSettings> settings) {
             Prevent.Null(dbContext, nameof(dbContext));
             Prevent.Null(httpContextAccessor, nameof(httpContextAccessor));
             Prevent.Null(settings, nameof(settings));
@@ -40,7 +40,7 @@ namespace Nameless.WebApplication.Services.Impl {
             var now = _clock.UtcNow;
             var result = new RefreshToken {
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(256)),
-                ExpiresIn = now.AddDays(_settings.Jwt.RefreshTokenTtl),
+                ExpiresIn = now.AddDays(_settings.RefreshTokenTtl),
                 CreatedIn = now,
                 CreatedByIp = _httpContextAccessor.HttpContext.GetIpAddress(),
                 CreationDate = now,
@@ -58,7 +58,7 @@ namespace Nameless.WebApplication.Services.Impl {
                 throw new InvalidRefreshTokenException();
             }
 
-            if (!currentRefreshToken.IsActive(_clock)) {
+            if (!currentRefreshToken.IsActive(_clock.UtcNow)) {
                 return;
             }
 

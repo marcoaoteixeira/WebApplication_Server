@@ -6,7 +6,7 @@ namespace Nameless.WebApplication.Services {
 
         #region Methods
 
-        Task<string> GenerateTokenAsync(string value, CancellationToken cancellationToken = default);
+        Task<string> GenerateTokenAsync(string subject, CancellationToken cancellationToken = default);
 
         Task<bool> ValidateTokenAsync(string token, [NotNullWhen(true)] out string? value, CancellationToken cancellationToken = default);
 

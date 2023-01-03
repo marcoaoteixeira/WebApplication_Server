@@ -27,12 +27,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
@@ -43,11 +37,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Logging\log4net\.editorconfig" />
+	  <EditorConfigFiles Remove="C:\Workspace\marcoaoteixeira\Nameless\apps\WebApplication\Nameless.WebApplication.Core\Logging\log4net\.editorconfig" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EditorConfigFiles Remove="C:\Workspace\marcoaoteixeira\Nameless\apps\WebApplication\Nameless.WebApplication.Core\Logging\log4net\.editorconfig" />
+	  <ProjectReference Include="..\Nameless.WebApplication.Entities\Nameless.WebApplication.Entities.csproj" />
 	</ItemGroup>
 
 </Project>

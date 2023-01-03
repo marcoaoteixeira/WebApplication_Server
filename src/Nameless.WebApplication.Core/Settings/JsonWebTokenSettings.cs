@@ -1,15 +1,6 @@
 ﻿namespace Nameless.WebApplication.Settings {
 
-    public sealed class WebApplicationSettings {
-
-        #region Public Properties
-
-        public JwtSettings Jwt { get; set; } = new();
-
-        #endregion
-    }
-
-    public sealed class JwtSettings {
+    public sealed class JsonWebTokenSettings {
 
         #region Public Constants
 
@@ -24,7 +15,7 @@
         public string Secret { get; set; } = DEFAULT_SECRET;
         public string? Issuer { get; set; }
         public string? Audience { get; set; }
-        public int Ttl { get; set; } = DEFAULT_TTL;
+        public int TokenTtl { get; set; } = DEFAULT_TTL;
         public int RefreshTokenTtl { get; set; } = DEFAULT_REFRESH_TOKEN_TTL;
 
         #endregion

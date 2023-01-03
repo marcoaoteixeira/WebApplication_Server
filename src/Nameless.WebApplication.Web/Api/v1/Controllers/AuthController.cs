@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Nameless.WebApplication.Domain.Dtos.Common;
 using Nameless.WebApplication.Domain.Dtos.v1.Auth;
 using Nameless.WebApplication.Services;
 using Swashbuckle.AspNetCore.Annotations;

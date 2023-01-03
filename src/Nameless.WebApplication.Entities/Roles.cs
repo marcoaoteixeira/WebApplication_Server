@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nameless.WebApplication.Domain.Entities {
+namespace Nameless.WebApplication.Entities {
 
     public enum Roles {
 

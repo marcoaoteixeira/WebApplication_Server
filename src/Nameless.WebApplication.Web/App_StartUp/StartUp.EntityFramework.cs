@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using Nameless.WebApplication.Domain;
-using Nameless.WebApplication.Domain.Entities;
+using Nameless.WebApplication.Entities;
 using Nameless.WebApplication.Services;
 
 namespace Nameless.WebApplication {
@@ -12,13 +11,9 @@ namespace Nameless.WebApplication {
 
         private static void ConfigureEntityFramework(IServiceCollection services, IHostEnvironment hostEnvironment, IConfiguration configuration) {
             services.AddDbContext<WebApplicationDbContext>(opts => {
-                var connectionString = configuration.GetConnectionString($"{nameof(WebApplicationDbContext)}_{hostEnvironment.EnvironmentName}");
-
-                if (hostEnvironment.IsDevelopment()) {
-                    opts.UseSqlite(connectionString);
-                } else {
-                    opts.UseSqlServer(connectionString);
-                }
+                var connectionString = configuration
+                    .GetConnectionString($"{nameof(WebApplicationDbContext)}_{hostEnvironment.EnvironmentName}");
+                opts.UseSqlServer(connectionString);
             });
         }
 
@@ -40,8 +35,8 @@ namespace Nameless.WebApplication {
                         Locked = false,
                         CreationDate = now,
                         ModificationDate = now,
-                        Claims = new List<Domain.Entities.Claim> {
-                            new Domain.Entities.Claim {
+                        Claims = new List<Entities.Claim> {
+                            new Entities.Claim {
                                 ID = Guid.Parse("c34752b2-2c82-4385-a8b3-ec88b3924aef"),
                                 Name = ClaimTypes.Role,
                                 Value = Roles.System.GetDescription(),
