@@ -15,7 +15,7 @@ namespace Nameless.WebApplication.Entities {
         #region Public Constructors
 
         public WebApplicationDbContext(DbContextOptions<WebApplicationDbContext> opts)
-            : base(opts) { Database.Migrate(); }
+            : base(opts) { }
 
         #endregion
 
