@@ -9,9 +9,11 @@ please, let me know.
 <br><br>
 
 ## Workflow Status
+<br>
 
-![main](https://github.com/marcoaoteixeira/WebApplication_Server/blob/main/.github/workflows/main.yml/badge.svg)
+![Main branch badge](https://github.com/marcoaoteixeira/WebApplication_Server/actions/workflows/main.yml/badge.svg)
 
+![Development branch badge](https://github.com/marcoaoteixeira/WebApplication_Server/actions/workflows/develop.yml/badge.svg)
 ## Starting
 
 Instructions below will show your the way to get things working.
