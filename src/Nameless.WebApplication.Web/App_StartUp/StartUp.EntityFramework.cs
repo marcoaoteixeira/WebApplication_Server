@@ -11,8 +11,15 @@ namespace Nameless.WebApplication {
 
         private static void ConfigureEntityFramework(IServiceCollection services, IHostEnvironment hostEnvironment, IConfiguration configuration) {
             services.AddDbContext<WebApplicationDbContext>(opts => {
-                var connectionString = configuration
-                    .GetConnectionString($"{nameof(WebApplicationDbContext)}_{hostEnvironment.EnvironmentName}");
+                // Get the environment variable telling that we're running on Docker
+                var isDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER");
+
+                var connectionStringName = string.Equals(isDocker, bool.TrueString, StringComparison.OrdinalIgnoreCase)
+                    ? $"{nameof(WebApplicationDbContext)}_Docker"
+                    : $"{nameof(WebApplicationDbContext)}";
+                
+                var connectionString = configuration.GetConnectionString(connectionStringName);
+
                 opts.UseSqlServer(connectionString);
             });
         }

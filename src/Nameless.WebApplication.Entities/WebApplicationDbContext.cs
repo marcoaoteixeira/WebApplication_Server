@@ -7,7 +7,7 @@ namespace Nameless.WebApplication.Entities {
         #region Public Properties
 
         public DbSet<User> Users => Set<User>();
-        public DbSet<Claim> Claims => Set<Entities.Claim>();
+        public DbSet<Claim> Claims => Set<Claim>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         #endregion
