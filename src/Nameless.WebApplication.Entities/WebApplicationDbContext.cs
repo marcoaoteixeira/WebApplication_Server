@@ -23,6 +23,14 @@ namespace Nameless.WebApplication.Entities {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder
+                .Entity<User>()
+                .Property(_ => _.Role)
+                .HasConversion(
+                    convertToProviderExpression: _ => _.ToString(),
+                    convertFromProviderExpression: _ => Enum.Parse<Roles>(_)
+                );
         }
 
         #endregion

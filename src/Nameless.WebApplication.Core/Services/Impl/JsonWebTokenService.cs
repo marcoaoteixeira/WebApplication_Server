@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Nameless.WebApplication.Settings;
-using SysClaim = System.Security.Claims.Claim;
 
 namespace Nameless.WebApplication.Services.Impl {
 
@@ -37,18 +37,18 @@ namespace Nameless.WebApplication.Services.Impl {
             var issuer = _jwtSettings.Issuer ?? string.Empty;
             var audience = _jwtSettings.Audience ?? string.Empty;
             var now = _clock.UtcNow;
-            var expires = now.AddMinutes(_jwtSettings.TokenTtl);
+            var expires = now.AddMinutes(_jwtSettings.Ttl);
             
             var securityToken = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
                 claims: new[] {
-                    new SysClaim(JwtRegisteredClaimNames.Sub, subject),
-                    new SysClaim(JwtRegisteredClaimNames.Iss, issuer),
-                    new SysClaim(JwtRegisteredClaimNames.Exp, expires.ToString()),
-                    new SysClaim(JwtRegisteredClaimNames.Iat, now.ToString()),
-                    new SysClaim(JwtRegisteredClaimNames.Aud, audience),
-                    new SysClaim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Sub, subject),
+                    new Claim(JwtRegisteredClaimNames.Iss, issuer),
+                    new Claim(JwtRegisteredClaimNames.Exp, expires.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Iat, now.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Aud, audience),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 },
                 expires: expires,
                 signingCredentials: new SigningCredentials(
