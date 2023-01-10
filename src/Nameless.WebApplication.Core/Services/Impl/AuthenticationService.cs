@@ -42,6 +42,10 @@ namespace Nameless.WebApplication.Services.Impl {
             };
         }
 
+        public Task<bool> RevokeTokenAsync(string token, CancellationToken cancellationToken = default) {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

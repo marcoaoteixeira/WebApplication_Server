@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Nameless.WebApplication.Entities;
 using Nameless.WebApplication.Services.Impl;
@@ -34,7 +35,7 @@ namespace Nameless.WebApplication.UnitTest.Services {
             };
 
             // act
-            var userManager = new UserManager(dbContext, _httpContextAccessor, Options.Create(_refreshTokenSettings));
+            var userManager = new UserManager(dbContext, _httpContextAccessor, NullLogger<UserManager>.Instance, Options.Create(_refreshTokenSettings));
 
             // assert
             await userManager.CreateAsync(user);
