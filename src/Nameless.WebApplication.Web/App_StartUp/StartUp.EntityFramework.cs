@@ -25,9 +25,12 @@ namespace Nameless.WebApplication {
         }
 
         private static void UseEntityFramework(IApplicationBuilder applicationBuilder) {
-            // seeding database
             using var dbContext = applicationBuilder.ApplicationServices.GetService<WebApplicationDbContext>();
             if (dbContext != null) {
+                // ensure db migrations run
+                dbContext.Database.Migrate();
+
+                // seeding database
                 var clock = applicationBuilder.ApplicationServices.GetService<IClock>();
                 var now = clock?.UtcNow ?? DateTime.UtcNow;
                 // Add admin user
@@ -46,7 +49,7 @@ namespace Nameless.WebApplication {
                             new Entities.Claim {
                                 ID = Guid.Parse("c34752b2-2c82-4385-a8b3-ec88b3924aef"),
                                 Name = ClaimTypes.Role,
-                                Value = Roles.System.GetDescription(),
+                                Value = Roles.SystemAdministrator.GetDescription(),
                                 CreationDate = now,
                                 ModificationDate = now,
                             }

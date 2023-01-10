@@ -24,13 +24,8 @@ namespace Nameless.WebApplication {
                 .InstancePerDependency();
 
             builder
-                .RegisterType<UserService>()
-                .As<IUserService>()
-                .InstancePerDependency();
-
-            builder
-                .RegisterType<RefreshTokenService>()
-                .As<IRefreshTokenService>()
+                .RegisterType<UserManager>()
+                .As<IUserManager>()
                 .InstancePerDependency();
 
             base.Load(builder);

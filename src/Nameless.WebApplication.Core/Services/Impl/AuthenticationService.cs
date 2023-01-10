@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Nameless.WebApplication.Domain.Dtos.Common;
-using Nameless.WebApplication.Settings;
+﻿using Nameless.WebApplication.Services.Models;
 
 namespace Nameless.WebApplication.Services.Impl {
 
@@ -8,28 +6,19 @@ namespace Nameless.WebApplication.Services.Impl {
 
         #region Private Read-Only Fields
 
-        private readonly IUserService _userService;
+        private readonly IUserManager _userManager;
         private readonly IJsonWebTokenService _jsonWebTokenService;
-        private readonly IRefreshTokenService _refreshTokenService;
-        private readonly IClock _clock;
-        private readonly JsonWebTokenSettings _settings;
 
         #endregion
 
         #region Public Constructors
 
-        public AuthenticationService(IUserService userService, IJsonWebTokenService jsonWebTokenService, IRefreshTokenService refreshTokenService, IClock clock, IOptions<JsonWebTokenSettings> settings) {
-            Prevent.Null(userService, nameof(userService));
-            Prevent.Null(jsonWebTokenService, nameof(jsonWebTokenService));
-            Prevent.Null(refreshTokenService, nameof(refreshTokenService));
-            Prevent.Null(clock, nameof(clock));
-            Prevent.Null(settings, nameof(settings));
+        public AuthenticationService(IUserManager userManager, IJsonWebTokenService jsonWebTokenService) {
+            Prevent.Null(userManager, nameof(userManager));
+            Prevent.Null(jsonWebTokenService, nameof(jsonWebTokenService)); ;
 
-            _userService = userService;
+            _userManager = userManager;
             _jsonWebTokenService = jsonWebTokenService;
-            _refreshTokenService = refreshTokenService;
-            _clock = clock;
-            _settings = settings.Value;
         }
 
         #endregion
@@ -37,7 +26,7 @@ namespace Nameless.WebApplication.Services.Impl {
         #region IAuthenticationService Members
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request, CancellationToken cancellationToken = default) {
-            var user = await _userService.GetByEmailAsync(request.Email, cancellationToken);
+            var user = await _userManager.GetByEmailAsync(request.Email, cancellationToken);
             if (user == null) { return new AuthenticationResponse { Reason = "Username or password incorrect." }; }
 
             if (!HashUtil.Validate(request.Password, user.Password)) {
@@ -45,19 +34,11 @@ namespace Nameless.WebApplication.Services.Impl {
             }
 
             var jsonWebToken = await _jsonWebTokenService.GenerateTokenAsync(user.ID.ToString(), cancellationToken);
-            //var refreshToken = await _refreshTokenService.GenerateAsync(cancellationToken);
-
-            //user.RefreshTokens.Add(refreshToken);
-            //user.RefreshTokens.RemoveAll(_ =>
-            //    !_.IsActive(_clock) &
-            //    _.CreatedIn.AddDays(_settings.Jwt.RefreshTokenTtl) <= _clock.UtcNow
-            //);
-
-            //await _userService.UpdateAsync(user, cancellationToken);
+            var refreshToken = await _userManager.GenerateRefreshTokenAsync(user.ID, cancellationToken);
 
             return new AuthenticationResponse {
                 Token = jsonWebToken,
-                //RefreshToken = refreshToken.Token
+                RefreshToken = refreshToken
             };
         }
 
