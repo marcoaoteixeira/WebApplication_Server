@@ -9,10 +9,7 @@ namespace Nameless.WebApplication.Api.Users.v1.Mappings {
         #region Public Constructors
 
         public CreateUserInput_User() {
-            CreateMap<CreateUserInput, User>()
-                .ForMember(dest => dest.Role, opts => {
-                    opts.MapFrom(src => src.Role != null ? Enum.Parse<Roles>(src.Role) : Roles.User);
-                });
+            CreateMap<CreateUserInput, User>();
         }
 
         #endregion

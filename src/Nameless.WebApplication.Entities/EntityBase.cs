@@ -1,11 +1,13 @@
-﻿namespace Nameless.WebApplication.Entities {
-    public abstract class EntityBase {
+﻿using System.ComponentModel.DataAnnotations;
 
-        #region Public Properties
+namespace Nameless.WebApplication.Entities {
 
-        public Guid ID { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime? ModificationDate { get; set; }
+    public abstract class EntityBase<TKey> where TKey : IEquatable<TKey> {
+
+        #region Public Virtual Properties
+
+        [Key]
+        public virtual TKey Id { get; set; } = default!;
 
         #endregion
     }

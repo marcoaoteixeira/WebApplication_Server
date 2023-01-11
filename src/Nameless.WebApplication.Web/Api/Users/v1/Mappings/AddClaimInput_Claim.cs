@@ -9,7 +9,7 @@ namespace Nameless.WebApplication.Api.Users.v1.Mappings {
         #region Public Constructors
 
         public AddClaimInput_Claim() {
-            CreateMap<AddClaimInput, Claim>();
+            CreateMap<AddClaimInput, UserClaim>();
         }
 
         #endregion

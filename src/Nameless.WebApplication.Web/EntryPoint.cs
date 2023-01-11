@@ -1,5 +1,4 @@
 using Autofac.Extensions.DependencyInjection;
-using Nameless.WebApplication.Logging.log4net;
 
 namespace Nameless.WebApplication {
 
@@ -23,7 +22,6 @@ namespace Nameless.WebApplication {
                             loggingBuilder.AddConfiguration(webHostBuilderContext.Configuration.GetSection("Logging"));
                             loggingBuilder.AddConsole();
                             loggingBuilder.AddDebug();
-                            loggingBuilder.AddLog4net();
                         })
                         .UseStartup<StartUp>();
                 });

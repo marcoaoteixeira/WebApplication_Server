@@ -32,10 +32,10 @@ namespace Nameless.WebApplication.UnitTest.Domain.Validations.v1.Users {
             // arrange
             var dbContext = DbContextFactory.CreateInMemory();
             dbContext.Users.Add(new User {
-                ID = Guid.NewGuid(),
-                Username = "username",
+                Id = Guid.NewGuid(),
+                UserName = "username",
                 Email = "email@email.com",
-                Password = "123456abc@#",
+                PasswordHash = "123456abc@#",
             });
             await dbContext.SaveChangesAsync();
 

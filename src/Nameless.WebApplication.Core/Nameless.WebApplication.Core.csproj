@@ -11,41 +11,4 @@
 		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Autofac" Version="6.5.0" />
-		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-		<PackageReference Include="AutoMapper" Version="12.0.0" />
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-		<PackageReference Include="ElmahCore" Version="2.1.2" />
-		<PackageReference Include="FluentValidation" Version="11.4.0" />
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
-		<PackageReference Include="log4net" Version="2.0.15" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EditorConfigFiles Remove="C:\Workspace\marcoaoteixeira\Nameless\apps\WebApplication\Nameless.WebApplication.Core\Logging\log4net\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EditorConfigFiles Remove="C:\Workspace\marcoaoteixeira\Nameless\apps\WebApplication\Nameless.WebApplication.Core\Logging\log4net\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Nameless.WebApplication.Entities\Nameless.WebApplication.Entities.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Search\" />
-	</ItemGroup>
-
 </Project>

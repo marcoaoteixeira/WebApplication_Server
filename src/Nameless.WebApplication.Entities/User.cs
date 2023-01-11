@@ -1,16 +1,14 @@
-﻿namespace Nameless.WebApplication.Entities {
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-    public sealed class User : EntityBase {
+namespace Nameless.WebApplication.Entities {
+
+    public sealed class User : IdentityUser<Guid> {
 
         #region Public Properties
 
-        public string Username { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public Roles Role { get; set; }
-        public bool Locked { get; set; }
-        public List<Claim> Claims { get; set; } = new();
-        public List<RefreshToken> RefreshTokens { get; set; } = new();
+        [MaxLength(2048)]
+        public string? AvatarUrl { get; set; }
 
         #endregion
     }

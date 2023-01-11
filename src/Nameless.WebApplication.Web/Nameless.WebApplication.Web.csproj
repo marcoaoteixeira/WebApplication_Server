@@ -15,27 +15,34 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+		<PackageReference Include="ElmahCore" Version="2.1.2" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.1" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Nameless.WebApplication.Autofac\Nameless.WebApplication.Autofac.csproj" />
 		<ProjectReference Include="..\Nameless.WebApplication.Core\Nameless.WebApplication.Core.csproj" />
+		<ProjectReference Include="..\Nameless.WebApplication.Domain\Nameless.WebApplication.Domain.csproj" />
 		<ProjectReference Include="..\Nameless.WebApplication.Entities\Nameless.WebApplication.Entities.csproj" />
+		<ProjectReference Include="..\Nameless.WebApplication.Logging.log4net\Nameless.WebApplication.Logging.log4net.csproj" />
+		<ProjectReference Include="..\Nameless.WebApplication.Services\Nameless.WebApplication.Services.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="log4net.config">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\v1\" />
+		<Content Update="log4net.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 </Project>

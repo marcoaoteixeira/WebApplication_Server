@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Nameless.WebApplication.Api.Users.v1.Models.Input;
 using Nameless.WebApplication.Api.Users.v1.Models.Output;
 using Nameless.WebApplication.Entities;
-using Nameless.WebApplication.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Nameless.WebApplication.Api.Users.v1.Controllers {
@@ -13,7 +13,7 @@ namespace Nameless.WebApplication.Api.Users.v1.Controllers {
 
         #region Private Read-Only Fields
 
-        private readonly IUserManager _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly IValidator<CreateUserInput> _createUserInputValidator;
         private readonly IValidator<UpdateUserInput> _updateUserInputValidator;
@@ -24,7 +24,7 @@ namespace Nameless.WebApplication.Api.Users.v1.Controllers {
         #region Public Constructors
 
         public UserController(
-            IUserManager userManager,
+            UserManager<User> userManager,
             IMapper mapper,
             IValidator<CreateUserInput> createUserInputValidator,
             IValidator<UpdateUserInput> updateUserInputValidator,
@@ -50,8 +50,8 @@ namespace Nameless.WebApplication.Api.Users.v1.Controllers {
         [HttpGet, Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAsync(Guid id, CancellationToken cancellationToken = default) {
-            var user = await _userManager.GetByIDAsync(id, cancellationToken);
+        public async Task<IActionResult> GetAsync(Guid id) {
+            var user = await _userManager.FindByIdAsync(id.ToString());
             var result = _mapper.Map<UserOutput>(user);
 
             return Ok(result);
@@ -69,7 +69,7 @@ namespace Nameless.WebApplication.Api.Users.v1.Controllers {
             }
 
             var user = _mapper.Map<User>(input);
-            await _userManager.CreateAsync(user, cancellationToken);
+            await _userManager.CreateAsync(user);
             var output = _mapper.Map<CreateUserOutput>(user);
 
             return Ok(output);
@@ -87,15 +87,15 @@ namespace Nameless.WebApplication.Api.Users.v1.Controllers {
             }
 
             var user = _mapper.Map<User>(input);
-            await _userManager.UpdateAsync(id, user, cancellationToken);
+            await _userManager.UpdateAsync(user);
 
             return Ok();
         }
 
         [HttpDelete]
         [SwaggerResponse(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteAsync([FromQuery] Guid userID, CancellationToken cancellationToken = default) {
-            await _userManager.DeleteAsync(userID, cancellationToken);
+        public IActionResult DeleteAsync([FromQuery] Guid userID, CancellationToken cancellationToken = default) {
+            //await _userManager.DeleteAsync(userID, cancellationToken);
 
             return NoContent();
         }
@@ -111,18 +111,18 @@ namespace Nameless.WebApplication.Api.Users.v1.Controllers {
                 return BadRequest(ModelState);
             }
 
-            var claim = _mapper.Map<Claim>(input);
-            await _userManager.AddClaimsAsync(id, new[] { claim }, cancellationToken);
+            var claim = _mapper.Map<UserClaim>(input);
+            //await _userManager.AddClaimsAsync(id, new[] { claim }, cancellationToken);
 
             return Ok();
         }
 
         [HttpDelete, Route("{id}/claims")]
         [SwaggerResponse(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> RemoveClaimsAsync([FromQuery] Guid id, [FromBody, SwaggerRequestBody(Required = true)] RemoveClaimInput input, CancellationToken cancellationToken = default) {
-            var claim = _mapper.Map<Claim>(input);
+        public IActionResult RemoveClaimsAsync([FromQuery] Guid id, [FromBody, SwaggerRequestBody(Required = true)] RemoveClaimInput input, CancellationToken cancellationToken = default) {
+            var claim = _mapper.Map<UserClaim>(input);
 
-            await _userManager.RemoveClaimsAsync(id, new[] { claim }, cancellationToken);
+            //await _userManager.RemoveClaimsAsync(id, new[] { claim }, cancellationToken);
 
             return NoContent();
         }

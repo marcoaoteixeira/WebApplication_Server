@@ -9,7 +9,7 @@ namespace Nameless.WebApplication.Api.Users.v1.Validators {
 
         #region Public Constructors
 
-        public CreateUserInputValidator(WebApplicationDbContext dbContext) {
+        public CreateUserInputValidator(ApplicationDbContext dbContext) {
             Prevent.Null(dbContext, nameof(dbContext));
 
             RuleFor(_ => _.Username)

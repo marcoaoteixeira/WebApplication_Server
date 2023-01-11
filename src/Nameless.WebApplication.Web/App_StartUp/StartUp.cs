@@ -28,6 +28,8 @@ namespace Nameless.WebApplication {
             ConfigureOptions(services, Configuration);
             
             ConfigureEntityFramework(services, HostEnvironment, Configuration);
+
+            ConfigureIdentity(services);
             
             ConfigureAutoMapper(services);
             

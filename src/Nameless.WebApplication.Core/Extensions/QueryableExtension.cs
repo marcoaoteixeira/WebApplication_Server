@@ -7,16 +7,16 @@ namespace Nameless.WebApplication.Extensions {
         #region Public Static Methods
 
         public static IQueryable<T> OrderBy<T>(this IQueryable<T> self, string propertyName) where T : class
-            => InnerOrderBy(self, propertyName, OrderDirection.Ascending);
+            => InnerOrderBy(self, propertyName, ascending: true);
 
         public static IQueryable<T> OrderByDescending<T>(this IQueryable<T> self, string propertyName) where T : class
-            => InnerOrderBy(self, propertyName, OrderDirection.Descending);
+            => InnerOrderBy(self, propertyName, ascending: false);
 
         #endregion
 
         #region Private Static Methods
 
-        private static IQueryable<T> InnerOrderBy<T>(IQueryable<T> self, string propertyName, OrderDirection orderDirection = OrderDirection.Ascending) where T : class {
+        private static IQueryable<T> InnerOrderBy<T>(IQueryable<T> self, string propertyName, bool ascending = true) where T : class {
             Prevent.Null(self, nameof(self));
 
             var type = typeof(T);
@@ -28,7 +28,7 @@ namespace Nameless.WebApplication.Extensions {
             var parameter = Expression.Parameter(type, "_");
             var propertyAccess = Expression.MakeMemberAccess(parameter, property);
             var propertyExpression = Expression.Lambda(propertyAccess, parameter);
-            var queryableMethodName = orderDirection == OrderDirection.Ascending
+            var queryableMethodName = ascending
                 ? nameof(Queryable.OrderBy)
                 : nameof(Queryable.OrderByDescending);
 

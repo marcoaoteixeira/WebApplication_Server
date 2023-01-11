@@ -3,8 +3,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nameless.WebApplication.Api.Auth.v1.Models.Input;
+using Nameless.WebApplication.Domain;
 using Nameless.WebApplication.Services;
-using Nameless.WebApplication.Services.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Nameless.WebApplication.Api.Auth.v1.Controllers {

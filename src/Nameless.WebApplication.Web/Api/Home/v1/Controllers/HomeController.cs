@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nameless.WebApplication.Collections.Generic;
-using Nameless.WebApplication.Domain.Output;
 
 namespace Nameless.WebApplication.Api.Home.v1.Controllers {
 
@@ -28,9 +27,7 @@ namespace Nameless.WebApplication.Api.Home.v1.Controllers {
         public IActionResult Get() {
             var page = new Page<int>(new[] { 1, 2, 3, 4, 5 });
 
-            var result = _mapper.Map<PageOutput<int>>(page);
-
-            return Ok(result);
+            return Ok(page);
         }
 
         [Authorize]

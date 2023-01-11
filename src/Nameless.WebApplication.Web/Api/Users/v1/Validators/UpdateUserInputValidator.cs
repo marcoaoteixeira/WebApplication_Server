@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Nameless.WebApplication.Api.Users.v1.Models.Input;
-using Nameless.WebApplication.Entities;
 
 namespace Nameless.WebApplication.Api.Users.v1.Validators {
 
@@ -20,8 +19,7 @@ namespace Nameless.WebApplication.Api.Users.v1.Validators {
                 .MaximumLength(256);
 
             RuleFor(_ => _.Role)
-                .NotEmpty()
-                .IsEnumName(typeof(Roles));
+                .NotEmpty();
         }
 
         #endregion
