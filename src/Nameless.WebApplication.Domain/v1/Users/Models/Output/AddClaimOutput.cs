@@ -1,6 +1,6 @@
-﻿namespace Nameless.WebApplication.Domain.v1.Users.Models.Input {
+﻿namespace Nameless.WebApplication.Domain.v1.Users.Models.Output {
 
-    public sealed class AddClaimInput {
+    public sealed class AddClaimOutput {
 
         #region Public Properties
 

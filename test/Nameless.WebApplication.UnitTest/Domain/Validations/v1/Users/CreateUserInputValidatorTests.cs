@@ -1,6 +1,6 @@
 ﻿using FluentValidation.TestHelper;
-using Nameless.WebApplication.Api.Users.v1.Models.Input;
-using Nameless.WebApplication.Api.Users.v1.Validators;
+using Nameless.WebApplication.Domain.v1.Users.Models.Input;
+using Nameless.WebApplication.Domain.v1.Users.Validators;
 using Nameless.WebApplication.Entities;
 
 namespace Nameless.WebApplication.UnitTest.Domain.Validations.v1.Users {
@@ -13,11 +13,10 @@ namespace Nameless.WebApplication.UnitTest.Domain.Validations.v1.Users {
             var dbContext = DbContextFactory.CreateInMemory();
             var validator = new CreateUserInputValidator(dbContext);
             var createUserInput = new CreateUserInput {
-                Username = "username",
+                UserName = "username",
                 Email = "email@email.com",
                 Password = "123456abc@#",
-                ConfirmPassword = "123456abc@#",
-                Locked = false
+                ConfirmPassword = "123456abc@#"
             };
 
             // act
@@ -41,11 +40,10 @@ namespace Nameless.WebApplication.UnitTest.Domain.Validations.v1.Users {
 
             var validator = new CreateUserInputValidator(dbContext);
             var createUserInput = new CreateUserInput {
-                Username = "username",
+                UserName = "username",
                 Email = "email@email.com",
                 Password = "123456abc@#",
-                ConfirmPassword = "123456abc@#",
-                Locked = false
+                ConfirmPassword = "123456abc@#"
             };
 
             // act

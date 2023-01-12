@@ -14,6 +14,14 @@ namespace Nameless.WebApplication.Domain {
             return expression;
         }
 
+        internal static IMappingExpression? IgnoreAll(this IMappingExpression expression) {
+            if (expression == default) { return default; }
+
+            expression.ForAllMembers(opt => opt.Ignore());
+
+            return expression;
+        }
+
         #endregion
     }
 }

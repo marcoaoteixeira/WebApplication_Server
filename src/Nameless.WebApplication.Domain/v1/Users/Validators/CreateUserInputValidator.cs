@@ -21,11 +21,8 @@ namespace Nameless.WebApplication.Domain.v1.Users.Validators {
                 .NotEmpty()
                 .EmailAddress()
                 .MaximumLength(256)
-                .MustAsync(async (email, cancellationToken) => {
-                    var result = await dbContext.Users.AnyAsync(_ => _.Email == email, cancellationToken);
-                    return !result;
-                })
-                .WithMessage("User already exists.");
+                .MustAsync(async (email, cancellationToken) => !await dbContext.Users.AnyAsync(_ => _.Email == email, cancellationToken))
+                .WithMessage("User already exists with the same e-mail address.");
 
             RuleFor(_ => _.Password)
                 .NotEmpty()
@@ -33,6 +30,9 @@ namespace Nameless.WebApplication.Domain.v1.Users.Validators {
 
             RuleFor(_ => _.ConfirmPassword)
                 .Equal(input => input.Password);
+
+            RuleFor(_ => _.PhoneNumber)
+                .MaximumLength(64);
         }
 
         #endregion

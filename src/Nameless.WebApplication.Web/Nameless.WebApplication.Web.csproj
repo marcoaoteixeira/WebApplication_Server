@@ -32,6 +32,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Nameless.WebApplication.Autofac\Nameless.WebApplication.Autofac.csproj" />
+		<ProjectReference Include="..\Nameless.WebApplication.Commands\Nameless.WebApplication.Commands.csproj" />
 		<ProjectReference Include="..\Nameless.WebApplication.Core\Nameless.WebApplication.Core.csproj" />
 		<ProjectReference Include="..\Nameless.WebApplication.Domain\Nameless.WebApplication.Domain.csproj" />
 		<ProjectReference Include="..\Nameless.WebApplication.Entities\Nameless.WebApplication.Entities.csproj" />

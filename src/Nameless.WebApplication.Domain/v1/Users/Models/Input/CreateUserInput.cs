@@ -4,12 +4,11 @@
 
         #region Public Properties
 
-        public string UserName { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string ConfirmPassword { get; set; } = null!;
-        public bool Locked { get; set; }
-        public string? Role { get; set; }
+        public string UserName { get; set; } = default!;
+        public string Email { get; set; } = default!;
+        public string Password { get; set; } = default!;
+        public string ConfirmPassword { get; set; } = default!;
+        public string? PhoneNumber { get; set; }
 
         #endregion
     }

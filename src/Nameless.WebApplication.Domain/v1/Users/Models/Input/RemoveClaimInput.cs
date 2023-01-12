@@ -4,7 +4,7 @@
 
         #region Public Properties
 
-        public string Name { get; set; } = null!;
+        public string Type { get; set; } = default!;
 
         #endregion
     }

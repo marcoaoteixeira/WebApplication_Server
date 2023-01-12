@@ -8,7 +8,8 @@ namespace Nameless.WebApplication.Domain.v1.Users.Validators {
         #region Public Constructors
 
         public AddClaimInputValidator() {
-            RuleFor(_ => _.Name).NotEmpty();
+            RuleFor(_ => _.Type)
+                .NotEmpty();
 
             RuleFor(_ => _.Value)
                 .NotEmpty()

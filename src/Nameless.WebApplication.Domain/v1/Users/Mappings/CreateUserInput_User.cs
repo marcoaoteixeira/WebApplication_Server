@@ -11,8 +11,10 @@ namespace Nameless.WebApplication.Domain.v1.Users.Mappings {
         public CreateUserInput_User() {
             CreateMap<CreateUserInput, User>()
                 .IgnoreAll()!
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email));
+                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.PhoneNumber, opts => opts.MapFrom(src => src.PhoneNumber));
         }
 
         #endregion

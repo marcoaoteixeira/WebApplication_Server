@@ -40,7 +40,7 @@ namespace Nameless.WebApplication.Versioning {
                 }
             }
 
-            if (operation.Parameters == null)
+            if (operation.Parameters == default)
             {
                 return;
             }
@@ -51,12 +51,12 @@ namespace Nameless.WebApplication.Versioning {
             {
                 var description = apiDescription.ParameterDescriptions.First(_ => _.Name == parameter.Name);
 
-                if (parameter.Description == null)
+                if (parameter.Description == default)
                 {
                     parameter.Description = description.ModelMetadata?.Description;
                 }
 
-                if (parameter.Schema.Default == null && description.DefaultValue != null)
+                if (parameter.Schema.Default == default && description.DefaultValue != null)
                 {
                     // REF: https://github.com/Microsoft/aspnet-api-versioning/issues/429#issuecomment-605402330
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
